@@ -1,58 +1,56 @@
-function main() {
+let input = document.querySelector('input');
+let rootElm = document.querySelector('.movies_list');
 
-    let movie = document.querySelector('form');
-    let input = document.querySelector('input');
-    let connector = document.querySelector('.connector');
+let allMovies = [{
+    name: 'Forest gump',
+    watched: false,
+}, {
+    name: "Batman",
+    watched: true,
+}]
 
-    let movieList = "";
-    let div = document.createElement('div');
-    div.classList.add('list');
+input.addEventListener('keyup', (event) => {
 
-    function movieListHandler(event) {
-
-        event.preventDefault();
-        movieList = event.target.elements.movie.value;
-
-        if (movieList.length !== 0) {
-            input.value = "";
-
-
-
-            let eachDiv = document.createElement('div');
-            let li = document.createElement('input');
-            let label = document.createElement('label');
-            let close = document.createElement('button');
-            close.classList.add('close');
-            close.innerText = 'To Watch';
-            eachDiv.append(li, label, close);
-            eachDiv.classList.add('movieBox');
-            li.setAttribute('type', 'checkbox');
-            li.classList.add('listElement');
-            label.innerText = movieList;
-
-
-            div.append(eachDiv);
-            connector.append(div);
-
-            let closebtn = document.querySelectorAll('.close');
-
-            function closebtnHandler(event) {
-                let cls = event.target.className;
-                let state = event.target.parentElement.firstElementChild.checked;
-                if (state === true && cls === 'close') {
-                    event.target.parentElement.remove();
-                } else {
-
-                }
-                console.log(cls, state)
-            }
-
-
-            closebtn.forEach(n => addEventListener('click', closebtnHandler))
-
-        }
+    if (event.keyCode === 13) {
+        allMovies.push({
+            name: event.target.value,
+            watched: false,
+        });
+        event.target.value = "";
+        createUI(allMovies, rootElm);
     }
-    movie.addEventListener('submit', movieListHandler);
+
+
+});
+
+function handleChange(event) {
+    let id = event.target.id;
+    allMovies[id].watched = !allMovies[id].watched;
+    createUI(allMovies, rootElm);
+}
+
+
+function createUI(data, root) {
+
+    root.innerHTML = "";
+    data.forEach((movie, i) => {
+        let li = document.createElement('li');
+        let button = document.createElement('button');
+        button.id = i;
+        button.innerText = movie.watched ? 'Watched' : 'To Watch';
+        button.addEventListener('click', handleChange);
+        let label = document.createElement('label');
+        label.for = i;
+        label.innerText = movie.name;
+
+        li.append(label, button);
+        rootElm.append(li);
+    })
+
 
 }
-main();
+
+
+createUI(allMovies, rootElm);
+
+
