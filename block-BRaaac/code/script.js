@@ -29,12 +29,17 @@ function handleChange(event) {
     createUI(allMovies, rootElm);
 }
 
-function elm(type,attr={},...children){
+function createElement(type,attr={},...children){
     let element=document.createElement(type);
     for(let key in attr){
         if(key.startsWith("data-")){
             element.setAttribute(key,attr[key]);
-        }else{
+        }else if(key.startsWith('on')){
+            let eventType=key.replace('on','').toLowerCase();
+            element.addEventListener(eventType,attr[key]);
+
+        }
+        else{
             element[key]=attr[key];
         }
     }
@@ -55,11 +60,13 @@ function createUI(data, root) {
 
     root.innerHTML = "";
     data.forEach((movie, i) => {
-        let li = elm(
+      
+        let li = createElement(
             'li',
             {},
-            elm('button',{id:i},movie.watched ? 'Watched' : 'To Watch'),
-            elm('label',{for:i},movie.name));
+            createElement('label',{for:i},movie.name),
+            createElement('button',{id:i,onClick:handleChange},movie.watched ? 'Watched' : 'To Watch')
+            );
 
         rootElm.append(li);
     })
