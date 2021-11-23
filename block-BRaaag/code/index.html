@@ -1,0 +1,77 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../code/style.css"/>
+    <title>Movie Watch List</title>
+  </head>
+  <body>
+    <main>
+     <div class="WatchList">
+      <h1>Movie WatchList</h1>
+      <input class="inputname" type="text" name='movie' placeholder="Enter the movie name">
+      <ul class="movies_list"></ul>
+     </div>
+     
+    </main>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" src="./script.js">
+    let input = document.querySelector('input');
+let rootElm = document.querySelector('.movies_list');
+
+let allMovies = [{
+    name: 'Forest gump',
+    watched: false,
+}, {
+    name: "Batman",
+    watched: true,
+}]
+
+input.addEventListener('keyup', (event) => {
+
+    if (event.keyCode === 13) {
+        allMovies.push({
+            name: event.target.value,
+            watched: false,
+        });
+        event.target.value = "";
+        createUI(allMovies, rootElm);
+    }
+
+
+});
+
+function handleChange(event) {
+    let id = event.target.id;
+    allMovies[id].watched = !allMovies[id].watched;
+    createUI(allMovies, rootElm);
+}
+
+
+
+function createUI(data, root) {
+
+
+    let movieUI = data.map((movie, i) => {
+
+        return <li>
+              <label for={i}>{movie.name}</label>
+              <button id={i} onClick="handleChange">{movie.watched ? 'Watched' : 'To Watch'}</button>
+            
+            </li>
+
+    })
+    ReactDOM.render(movieUI, rootElm);
+
+}
+
+
+createUI(allMovies, rootElm);
+    </script>
+  </body>
+</html>
