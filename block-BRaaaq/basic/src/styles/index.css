@@ -1,0 +1,43 @@
+ul{
+    list-style: none;
+    display: flex;
+}
+li{
+    padding-right: 10px;
+    font-weight: bold;
+    color: white;
+}
+img{
+    width: 100%;
+}
+
+strong{
+    color: green;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+p{
+    color: gray;
+}
+
+a{
+    text-decoration: none;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(9, 9, 34);
+}
+
+.brand{
+    display: inline-block;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+small{
+    color: white;
+}
