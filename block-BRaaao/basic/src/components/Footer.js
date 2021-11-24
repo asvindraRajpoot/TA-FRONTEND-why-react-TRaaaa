@@ -5,7 +5,7 @@ function Footer(props){
         
       
        <nav>  
-           <small>Copyright All rights reserved 2021</small>
+           <small>&copy;Copyright All rights reserved 2021</small>
         <ul>
             <li>Facebook</li>
             <li>Tweeter</li>
