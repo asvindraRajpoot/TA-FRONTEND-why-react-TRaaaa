@@ -1,10 +1,13 @@
 import '../data/colors.json'
-let arr=[50,100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900]
+
 function Color(props){
     console.log(props.colorCode);
     return(
-       
-       
+       <>
+       <div className="single-color">
+        <div>
+            <span className="color">{props.colorName}</span>
+        </div>
           <div className="flex">
               {
                   props.colorCode.map((color,i)=>{
@@ -18,7 +21,7 @@ function Color(props){
 
                            </div>
                         <div className="flex color-code">
-                         <span>{arr[i]}</span>
+                         <span>{i===0?0:i*100}</span>
                          <span>{color}</span>
 
                        </div>   
@@ -29,6 +32,8 @@ function Color(props){
                   })
               }
           </div>
+          </div>
+          </>
           
        
 
